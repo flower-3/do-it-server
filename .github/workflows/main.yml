@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PEM_KEY }}
           script: |
-            sudo docker rm -f $(docker ps -af "name=do-it-server")
+            sudo docker rm -f $(docker ps -aq -f "name=do-it-server")
             sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO}}
             docker run -itd -p 8080:8080 --name do-it-server ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO}}:latest
             docker image prune -f
