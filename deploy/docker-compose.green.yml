@@ -1,0 +1,12 @@
+version: "3"
+services:
+  server:
+    image: juhyunglee/do-it-server:latest
+    restart: on-failure
+    container_name: do-it-server-green
+    ports:
+      - 8081:8080
+
+networks:
+  default:
+    name: doitNetwork
