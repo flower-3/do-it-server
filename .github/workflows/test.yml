@@ -25,11 +25,9 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           user: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PEM_KEY }}
-          pre_upload: |
-          echo "This will be executed before the upload!"
-          post_upload: |
-          echo "This will be executed after the upload!"
-          sudo chmod 775 "/home/runner/work/do-it-server/do-it-server/deploy.sh"
+          pre_upload: echo "This will be executed before the upload!"
+          post_upload: echo "This will be executed after the upload!"
+          ##sudo chmod 775 "/home/runner/work/do-it-server/do-it-server/deploy.sh"
       - name: test2
         run: |
           pwd
