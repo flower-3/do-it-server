@@ -20,13 +20,23 @@ jobs:
           target: "/home/ubuntu/do-it-deploy/script/server/deploy.sh"
 
       - uses: actions/checkout@master
-      - name: compose file transfer by scp
+      - name: compose-red file transfer by scp
         uses: siva1024/scp-deployer@latest
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PEM_KEY }}
-          source: "/home/runner/work/do-it-server/do-it-server/deploy/docker-compose/*"
+          source: "/home/runner/work/do-it-server/do-it-server/deploy/docker-compose/docker-compose.red.yml"
+          target: "/home/ubuntu/do-it-deploy/docker/server/"
+
+      - uses: actions/checkout@master
+      - name: compose-green file transfer by scp
+        uses: siva1024/scp-deployer@latest
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PEM_KEY }}
+          source: "/home/runner/work/do-it-server/do-it-server/deploy/docker-compose/docker-compose.green.yml"
           target: "/home/ubuntu/do-it-deploy/docker/server/"
 
       - name: deploy docker image to EC2
