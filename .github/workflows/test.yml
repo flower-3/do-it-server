@@ -20,8 +20,8 @@ jobs:
 #          target: "/home/runner/work/do-it-server/do-it-server/deploy.sh"
       - uses: mdallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: '/home/runner/work/do-it-server/do-it-server/deploy.sh'                                                  # Local file path - REQUIRED false - DEFAULT ./
-          remote: '/home/runner/work/do-it-server/do-it-server/deploy.sh'                                                 # Remote file path - REQUIRED false - DEFAULT ~/
+          local: "/home/runner/work/do-it-server/do-it-server/deploy.sh"                                                  # Local file path - REQUIRED false - DEFAULT ./
+          remote: "/home/ubuntu/do-it-deploy/script/server/deploy.sh"                                                 # Remote file path - REQUIRED false - DEFAULT ~/
           host: ${{ secrets.EC2_HOST }}
           user: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PEM_KEY }}
