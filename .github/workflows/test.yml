@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: config file transfer by scp
+      - name: deploy file transfer by scp
         uses: siva1024/scp-deployer@latest
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -20,13 +20,13 @@ jobs:
           target: "/home/ubuntu/do-it-deploy/script/server/deploy.sh"
 
       - uses: actions/checkout@master
-      - name: config file transfer by scp
+      - name: compose file transfer by scp
         uses: siva1024/scp-deployer@latest
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PEM_KEY }}
-          source: "/home/runner/work/do-it-server/do-it-server/deploy/"
+          source: "/home/runner/work/do-it-server/do-it-server/deploy/docker-compose/"
           target: "/home/ubuntu/do-it-deploy/docker/server/"
 
       - name: deploy docker image to EC2
