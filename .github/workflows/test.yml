@@ -47,7 +47,7 @@ jobs:
           key: ${{ secrets.EC2_PEM_KEY }}
           script: |
             sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO}}
-            sudo chmod -R 775 do-it-deploy
+            sudo chmod -R 777 do-it-deploy
             BASH_RESULT=$(sh /home/ubuntu/do-it-deploy/script/server/deploy.sh | tail -1)
             echo "${BASH_RESULT}"
     
