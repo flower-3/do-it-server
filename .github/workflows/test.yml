@@ -16,8 +16,19 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PEM_KEY }}
-          source: "/home/runner/work/do-it-server/do-it-server/deploy/deploy.sh /home/runner/work/do-it-server/do-it-server/deploy/docker-compose.green.yml /home/runner/work/do-it-server/do-it-server/deploy/docker-compose.red.yml"
-          target: "/home/ubuntu/do-it-deploy/script/server/deploy.sh /home/ubuntu/do-it-deploy/docker/server/docker-compose.green.yml /home/ubuntu/do-it-deploy/docker/server/docker-compose.red.yml"
+          source: "/home/runner/work/do-it-server/do-it-server/deploy/deploy.sh"
+          target: "/home/ubuntu/do-it-deploy/script/server/deploy.sh"
+
+      - uses: actions/checkout@master
+      - name: config file transfer by scp
+        uses: siva1024/scp-deployer@latest
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PEM_KEY }}
+          source: "/home/runner/work/do-it-server/do-it-server/deploy/"
+          target: "/home/ubuntu/do-it-deploy/docker/server/"
+
       - name: deploy docker image to EC2
         uses: appleboy/ssh-action@master
         with:
