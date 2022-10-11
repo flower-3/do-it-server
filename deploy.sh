@@ -36,4 +36,4 @@ echo "do-it-server-${TERMINATE_CONTAINER} down"
 sudo docker-compose -p do-it-server-${TERMINATE_CONTAINER} down
 sudo docker image prune -f
 
-echo "$(awk -F- '{print $4}' <<< '${EXIST_RED}')"
+echo "$(awk -F' ' '{print $1}' <<< ${EXIST_RED} | awk -F'-' '{print $4}')"
