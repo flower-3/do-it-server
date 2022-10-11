@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: copy file via ssh password
+      - name: config file transfer by scp
         uses: siva1024/scp-deployer@latest
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -18,10 +18,6 @@ jobs:
           key: ${{ secrets.EC2_PEM_KEY }}
           source: "/home/runner/work/do-it-server/do-it-server/deploy.sh"
           target: "/home/ubuntu/do-it-deploy/script/server/deploy.sh"
-      - name: test2
-        run: |
-          pwd
-          find . -name "deploy.sh"
       - name: deploy docker image to EC2
         uses: appleboy/ssh-action@master
         with:
@@ -31,5 +27,6 @@ jobs:
           script: |
             sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO}}
             sudo chmod 775 do-it-deploy/script/server/deploy.sh
-            sudo sh do-it-deploy/script/server/deploy.sh
+            BASH_RESULT=$(sh do-it-deploy/script/server/deploy.sh | tail -1)
+            echo $(BASH_RESULT)
     
