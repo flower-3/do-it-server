@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#test
 DOCKER_COMPOSE_PATH=/home/ubuntu/do-it-deploy/docker/server
 EXIST_RED=$(sudo docker-compose -p do-it-server-red ps | grep do-it-server-red)
 
