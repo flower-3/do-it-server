@@ -9,15 +9,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: copy file via ssh password
-        uses: siva1024/scp-deployer@latest
+#      - uses: actions/checkout@master
+#      - name: copy file via ssh password
+#        uses: siva1024/scp-deployer@latest
+#        with:
+#          host: ${{ secrets.EC2_HOST }}
+#          username: ${{ secrets.EC2_USERNAME }}
+#          key: ${{ secrets.EC2_PEM_KEY }}
+#          source: "/home/runner/work/do-it-server/do-it-server/deploy.sh"
+#          target: "/home/runner/work/do-it-server/do-it-server/deploy.sh"
+      - uses: mdallasanta/ssh-scp-deploy@{version}
         with:
+          local: '/home/runner/work/do-it-server/do-it-server/deploy.sh'                                                  # Local file path - REQUIRED false - DEFAULT ./
+          remote: '/home/runner/work/do-it-server/do-it-server/deploy.sh'                                                 # Remote file path - REQUIRED false - DEFAULT ~/
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
+          user: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PEM_KEY }}
-          source: "/home/runner/work/do-it-server/do-it-server/deploy.sh"
-          target: "/home/ubuntu/do-it-deploy/script/server/deploy.sh"
+          pre_upload: |
+          echo "This will be executed before the upload!"
+          post_upload: |
+          echo "This will be executed after the upload!"
+          sudo chmod 775 "/home/runner/work/do-it-server/do-it-server/deploy.sh"
       - name: test2
         run: |
           pwd
