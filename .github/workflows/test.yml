@@ -8,19 +8,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
+      - uses: actions/checkout@master
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          port: 22
+          key: ${{ secrets.EC2_PEM_KEY }}
+          source: "/home/runner/work/do-it-server/do-it-server/deploy.sh"
+          target: "/home/ubuntu/do-it-deploy/script/server/deploy.sh"
       - name: test2
         run: |
           pwd
           find . -name "deploy.sh"
-#      - name: deploy docker image to EC2
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.EC2_HOST }}
-#          username: ${{ secrets.EC2_USERNAME }}
-#          key: ${{ secrets.EC2_PEM_KEY }}
-#          script: |
-#            sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO}}
-#            sudo sh do-it-deploy/script/server/deploy.sh
+      - name: deploy docker image to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PEM_KEY }}
+          script: |
+            sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO}}
+            sudo sh do-it-deploy/script/server/deploy.sh
     
