@@ -26,7 +26,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PEM_KEY }}
-          source: "/home/runner/work/do-it-server/do-it-server/deploy/docker-compose/"
+          source: "/home/runner/work/do-it-server/do-it-server/deploy/docker-compose/*"
           target: "/home/ubuntu/do-it-deploy/docker/server/"
 
       - name: deploy docker image to EC2
@@ -37,7 +37,7 @@ jobs:
           key: ${{ secrets.EC2_PEM_KEY }}
           script: |
             sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO}}
-            sudo chmod 775 do-it-deploy/script/server/deploy.sh
+            sudo chmod -R 775 do-it-deploy
             BASH_RESULT=$(sh /home/ubuntu/do-it-deploy/script/server/deploy.sh | tail -1)
             echo "${BASH_RESULT}"
     
