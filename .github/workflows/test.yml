@@ -48,6 +48,7 @@ jobs:
           script: |
             sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO}}
             sudo chmod -R 777 do-it-deploy
+            sudo chown -R ubuntu do-it-deploy
             BASH_RESULT=$(sh /home/ubuntu/do-it-deploy/script/server/deploy.sh | tail -1)
             echo "${BASH_RESULT}"
     
