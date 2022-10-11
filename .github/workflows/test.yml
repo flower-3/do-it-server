@@ -18,7 +18,7 @@ jobs:
 #          key: ${{ secrets.EC2_PEM_KEY }}
 #          source: "/home/runner/work/do-it-server/do-it-server/deploy.sh"
 #          target: "/home/runner/work/do-it-server/do-it-server/deploy.sh"
-      - uses: mdallasanta/ssh-scp-deploy@{version}
+      - uses: mdallasanta/ssh-scp-deploy@1.2.0
         with:
           local: '/home/runner/work/do-it-server/do-it-server/deploy.sh'                                                  # Local file path - REQUIRED false - DEFAULT ./
           remote: '/home/runner/work/do-it-server/do-it-server/deploy.sh'                                                 # Remote file path - REQUIRED false - DEFAULT ~/
